@@ -13,9 +13,9 @@ namespace bit
 	public:
 		typedef T* iterator;
 		typedef const T* const_iterator;
-		//¹¹Ôìº¯Êı
+		//æ„é€ å‡½æ•°
 		vector() :_start(nullptr), _finish(nullptr), _endOfStorage(nullptr)
-		{}£»
+		{}
 
 
 		vector(size_t n,const T& val=T()) 
@@ -25,10 +25,10 @@ namespace bit
 			{
 				push_back(val);
 			}
-		};
-		//ÀàÄ£°åµÄ³ÉÔ±º¯Êı£¬»¹¿ÉÒÔ¼ÌĞøÊÇº¯ÊıÄ£°å
-		//Çø¼ä¹¹Ôì
-		//ÈÎÒâÀàĞÍµÄµü´úÆ÷¶¼¿ÉÒÔ
+		}
+		//ç±»æ¨¡æ¿çš„æˆå‘˜å‡½æ•°ï¼Œè¿˜å¯ä»¥ç»§ç»­æ˜¯å‡½æ•°æ¨¡æ¿
+		//åŒºé—´æ„é€ 
+		//ä»»æ„ç±»å‹çš„è¿­ä»£å™¨éƒ½å¯ä»¥
 		template<typename InputIterator>
 		vector(InputIterator first, InputIterator last)
 		{
@@ -38,16 +38,16 @@ namespace bit
 				++first;
 			}
 		}
-		//¿½±´¹¹Ôìº¯Êı
+		//æ‹·è´æ„é€ å‡½æ•°
 		vector(const vector<T>& v)
 		{
-			reserve(v.size());//ÌáÇ°·ÖÅäºÃ¿Õ¼ä£¬±ÜÃâ¶à´ÎÀ©Èİ
+			reserve(v.size());//æå‰åˆ†é…å¥½ç©ºé—´ï¼Œé¿å…å¤šæ¬¡æ‰©å®¹
 			for (auto& e : v)
 			{
 				push_back(e);
 			}
 		}
-		//Îö¹¹º¯Êı
+		//ææ„å‡½æ•°
 		~vector()
 		{
 			delete[] _start;
@@ -96,28 +96,28 @@ namespace bit
 			return _start == _finish;
 		}
 
-		void reserve(size_t n)//À©Èİ
+		void reserve(size_t n)//æ‰©å®¹
 		{
 			if (n > capacity())
 			{
 				size_t old_size = size();
 				T* tmp = new T[n];
-				//Ç³¿½±´£¬ÒòÎªTÀàĞÍ²»È·¶¨£¬²»ÄÜµ÷ÓÃTµÄ¿½±´¹¹Ôìº¯Êı
-				// Èç¹ûTÖĞÓĞÖ¸Õë³ÉÔ±£¬Ç³¿½±´»á³öÎÊÌâ
+				//æµ…æ‹·è´ï¼Œå› ä¸ºTç±»å‹ä¸ç¡®å®šï¼Œä¸èƒ½è°ƒç”¨Tçš„æ‹·è´æ„é€ å‡½æ•°
+				// å¦‚æœTä¸­æœ‰æŒ‡é’ˆæˆå‘˜ï¼Œæµ…æ‹·è´ä¼šå‡ºé—®é¢˜
 				//memcpy(tmp, _start, size() * sizeof(T));
-				for (size_t i = 0; i < size(); i++)//Éî¿½±´,Ñ­»·µ÷ÓÃTµÄ¿½±´¹¹Ôìº¯Êı
+				for (size_t i = 0; i < size(); i++)//æ·±æ‹·è´,å¾ªç¯è°ƒç”¨Tçš„æ‹·è´æ„é€ å‡½æ•°
 				{
 					tmp[i] = _start[i];
 				}
 				delete[] _start;
 				_start = tmp;
-				_finish = _start + old_size;//size()ÖĞµÄ_startÒÑ¾­±äÁË£¬ËùÒÔÒªÖØĞÂ¼ÆËã
+				_finish = _start + old_size;//size()ä¸­çš„_startå·²ç»å˜äº†ï¼Œæ‰€ä»¥è¦é‡æ–°è®¡ç®—
 				_endOfStorage = _start + n;
 			}
 		}
 
 
-		//Î²²å
+		//å°¾æ’
 		void push_back(const T& val)
 		{
 			if (_finish == _endOfStorage)
@@ -128,21 +128,21 @@ namespace bit
 			++_finish;
 		}
 
-		//Î²É¾
+		//å°¾åˆ 
 		void pop_back()
 		{
 			assert(size() > 0);
 			--_finish;
 		}
-		//²åÈë
-		iterator insert(iterator pos, const T& val)//·µ»ØĞÂ²åÈëÔªËØµÄÎ»ÖÃ
+		//æ’å…¥
+		iterator insert(iterator pos, const T& val)//è¿”å›æ–°æ’å…¥å…ƒç´ çš„ä½ç½®
 		{
 			assert(pos <= _finish && pos >= _start);
 			size_t len = pos - _start;
 
 			if (_finish == _endOfStorage)
 			{
-				reserve(capacity() == 0 ? 4 : 2 * capacity());//Èç¹ûÀ©Èİ£¬µØÖ··¢Éú¸Ä±ä£¬µü´úÆ÷Ê§Ğ§
+				reserve(capacity() == 0 ? 4 : 2 * capacity());//å¦‚æœæ‰©å®¹ï¼Œåœ°å€å‘ç”Ÿæ”¹å˜ï¼Œè¿­ä»£å™¨å¤±æ•ˆ
 			}
 			pos = _start + len;
 			iterator end = _finish - 1;
@@ -155,13 +155,13 @@ namespace bit
 			++_finish;
 		}
 
-		void insert(iterator pos, const T& val, int n)//ÔÚposÎ»ÖÃ²åÈën¸öval
+		void insert(iterator pos, const T& val, int n)//åœ¨posä½ç½®æ’å…¥nä¸ªval
 		{
 			assert(pos <= _finish && pos >= _start);
 			size_t len = pos - _start;
 			while (size() + n > capacity())
 			{
-				reserve(capacity() == 0 ? 4 : 2 * capacity());//Èç¹ûÀ©Èİ£¬µØÖ··¢Éú¸Ä±ä£¬µü´úÆ÷Ê§Ğ§
+				reserve(capacity() == 0 ? 4 : 2 * capacity());//å¦‚æœæ‰©å®¹ï¼Œåœ°å€å‘ç”Ÿæ”¹å˜ï¼Œè¿­ä»£å™¨å¤±æ•ˆ
 			}
 			pos = _start + len;
 			iterator end = _finish - 1;
@@ -176,7 +176,7 @@ namespace bit
 			}
 			_finish += n;
 		}
-		//É¾³ı
+		//åˆ é™¤
 		iterator erase(iterator pos)//
 		{
 			assert(pos >= _start && pos < _finish);
@@ -205,7 +205,7 @@ namespace bit
 
 		//vector<T>& operator=(const vector<T>& v)
 		//{
-		//	if (this != &v)//·ÀÖ¹×Ô¸³Öµ
+		//	if (this != &v)//é˜²æ­¢è‡ªèµ‹å€¼
 		//	{
 		//		clear();
 		//		reserve(v.size());
@@ -217,13 +217,13 @@ namespace bit
 		//	return *this;
 		//}
 
-		vector<T>& operator=(vector<T> v)//´«Öµ·½Ê½£¬µ÷ÓÃÉî¿½±´¹¹Ôìº¯Êı£¬¸ø¸±±¾ĞÂµÄ¿Õ¼ä£¬È»ºó½»»»£¬²»»á¸Ä±äÔ­À´¶ÔÏóµÄÊı¾İ
+		vector<T>& operator=(vector<T> v)//ä¼ å€¼æ–¹å¼ï¼Œè°ƒç”¨æ·±æ‹·è´æ„é€ å‡½æ•°ï¼Œç»™å‰¯æœ¬æ–°çš„ç©ºé—´ï¼Œç„¶åäº¤æ¢ï¼Œä¸ä¼šæ”¹å˜åŸæ¥å¯¹è±¡çš„æ•°æ®
 		{
 			swap(v);
 			return *this;
 		}
 
-		void resize(size_t n, const T& val = T())//¸Ä±ä´óĞ¡
+		void resize(size_t n, const T& val = T())//æ”¹å˜å¤§å°
 		{
 			if (n <= size())
 			{
@@ -254,14 +254,14 @@ namespace bit
 
 	private:
 		iterator _start=nullptr;
-		iterator _finish = nullptr;//Ö¸Ïò×îºóÒ»¸öÔªËØµÄÏÂÒ»¸öÎ»ÖÃ
-		iterator _endOfStorage = nullptr;//Ö¸ÏòÈİÁ¿µÄ×îºóÒ»¸öÎ»ÖÃµÄÏÂÒ»¸öÎ»ÖÃ
+		iterator _finish = nullptr;//æŒ‡å‘æœ€åä¸€ä¸ªå…ƒç´ çš„ä¸‹ä¸€ä¸ªä½ç½®
+		iterator _endOfStorage = nullptr;//æŒ‡å‘å®¹é‡çš„æœ€åä¸€ä¸ªä½ç½®çš„ä¸‹ä¸€ä¸ªä½ç½®
 	};
 
 	template<typename T>
 	void printVector(const vector<T>& v)
 	{
-		//¹æ¶¨£ºÃ»ÓĞÊµÀı»¯ÀàÄ£°å£¬¾Í²»ÄÜÊ¹ÓÃÀàÄÚµÄÀàĞÍ£¬ÒòÎª±àÒëÆ÷²»ÄÜÇø·Öconst_iteratorÊÇÀàÄÚÀàĞÍ»¹ÊÇ¾²Ì¬³ÉÔ±
+		//è§„å®šï¼šæ²¡æœ‰å®ä¾‹åŒ–ç±»æ¨¡æ¿ï¼Œå°±ä¸èƒ½ä½¿ç”¨ç±»å†…çš„ç±»å‹ï¼Œå› ä¸ºç¼–è¯‘å™¨ä¸èƒ½åŒºåˆ†const_iteratoræ˜¯ç±»å†…ç±»å‹è¿˜æ˜¯é™æ€æˆå‘˜
 		typename vector<T>::const_iterator it = v.begin();
 		while (it != v.end())
 		{
@@ -276,4 +276,5 @@ namespace bit
 		cout << endl;
 
 	}
+
 }
