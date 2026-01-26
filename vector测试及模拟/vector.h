@@ -153,6 +153,7 @@ namespace bit
 			}
 			*pos = val;
 			++_finish;
+			return pos;
 		}
 
 		void insert(iterator pos, const T& val, int n)//在pos位置插入n个val
@@ -278,3 +279,4 @@ namespace bit
 	}
 
 }
+
