@@ -408,7 +408,7 @@ namespace keyAndval
 						}
 						else//minRightParent==cur,待删节点的右节点就是右子树的最小节点
 						{
-							minRight->right = minRight->right;
+							minParent->right = minRight->right;
 						}
 						delete minRight;//释放该最小节点
 						return true;
@@ -442,3 +442,4 @@ namespace keyAndval
 	};
 
 }
+
