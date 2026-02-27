@@ -5,11 +5,11 @@ using namespace std;
 namespace key
 {
 	template<typename K>
-	struct BSTNode//¶ş²æËÑË÷Ê÷½Úµã
+	struct BSTNode//äºŒå‰æœç´¢æ ‘èŠ‚ç‚¹
 	{
-		K _key;//¼ü
-		BSTNode<K>* left;//×ó×ÓÊ÷
-		BSTNode<K>* right;//ÓÒ×ÓÊ÷
+		K _key;//é”®
+		BSTNode<K>* left;//å·¦å­æ ‘
+		BSTNode<K>* right;//å³å­æ ‘
 
 		BSTNode(const K& key)
 			:_key(key)
@@ -30,7 +30,7 @@ namespace key
 		}
 		bool insert(const K& key)
 		{
-			if (_root == nullptr)//¿ÕÊ÷
+			if (_root == nullptr)//ç©ºæ ‘
 			{
 				Node* newNode = new Node(key);
 				_root = newNode;
@@ -40,22 +40,22 @@ namespace key
 			Node* cur = _root;
 			while (cur)
 			{
-				if (cur->_key > key)//±È¸Ã½áµãĞ¡£¬Íù×ó×ß
+				if (cur->_key > key)//æ¯”è¯¥ç»“ç‚¹å°ï¼Œå¾€å·¦èµ°
 				{
 					parent = cur;
 					cur = cur->left;
 				}
-				else if (cur->_key < key)//±È¸Ã½áµã´ó£¬ÍùÓÒ×ß
+				else if (cur->_key < key)//æ¯”è¯¥ç»“ç‚¹å¤§ï¼Œå¾€å³èµ°
 				{
 					parent = cur;
 					cur = cur->right;
 				}
 				else
 				{
-					return false;//²»ÔÊĞí²åÈëÏàÍ¬µÄ¼ü
+					return false;//ä¸å…è®¸æ’å…¥ç›¸åŒçš„é”®
 				}
 			}
-			//ÕÒµ½ÁË²åÈëÎ»ÖÃ
+			//æ‰¾åˆ°äº†æ’å…¥ä½ç½®
 			cur = new Node(key);
 			if (parent->_key < key)
 			{
@@ -68,7 +68,7 @@ namespace key
 			return true;
 		}
 
-		//ÖĞĞò±éÀú
+		//ä¸­åºéå†
 		void InOrder()
 		{
 			_InOrder(_root);
@@ -112,13 +112,13 @@ namespace key
 					parent = cur;
 					cur = cur->left;
 				}
-				else//ÕÒµ½´ıÉ¾½áµã
+				else//æ‰¾åˆ°å¾…åˆ ç»“ç‚¹
 				{
-					//Èç¹û¸Ã½áµãÖ»ÓĞ0»ò1¸öº¢×Ó
-					//Èô¸Ã½ÚµãµÄ×ó×ÓÊ÷Îª¿Õ
+					//å¦‚æœè¯¥ç»“ç‚¹åªæœ‰0æˆ–1ä¸ªå­©å­
+					//è‹¥è¯¥èŠ‚ç‚¹çš„å·¦å­æ ‘ä¸ºç©º
 					if (cur->left == nullptr)
 					{
-						//Èç¹û¸Ã½áµãÊÇ¸ù½áµã
+						//å¦‚æœè¯¥ç»“ç‚¹æ˜¯æ ¹ç»“ç‚¹
 						if (parent == nullptr)
 						{
 							_root = cur->right;
@@ -136,9 +136,9 @@ namespace key
 						delete cur;
 						return true;
 					}
-					else if (cur->right == nullptr)//Èô¸Ã½ÚµãµÄÓÒ×ÓÊ÷Îª¿Õ
+					else if (cur->right == nullptr)//è‹¥è¯¥èŠ‚ç‚¹çš„å³å­æ ‘ä¸ºç©º
 					{
-						//Èç¹û¸Ã½áµãÊÇ¸ù½Úµã
+						//å¦‚æœè¯¥ç»“ç‚¹æ˜¯æ ¹èŠ‚ç‚¹
 						if (parent == nullptr)
 						{
 							_root = cur->left;
@@ -157,38 +157,38 @@ namespace key
 						delete cur;
 						return true;
 					}
-					else//¸Ã½áµãÓĞÁ½¸öº¢×Ó
+					else//è¯¥ç»“ç‚¹æœ‰ä¸¤ä¸ªå­©å­
 					{
-						//ÕÒµ½´ıÉ¾½áµãµÄÓÒ×ÓÊ÷µÄ×îĞ¡½Úµã£¨Ò²¿ÉÒÔÊÇ×ó×ÓÊ÷µÄ×î´ó½Úµã£©
-						//ÓÃ¸Ã½ÚµãµÄÖµ¸²¸Ç´ıÉ¾½áµãµÄÖµ£¬È»ºóÉ¾³ı¸Ã×îĞ¡½Úµã
+						//æ‰¾åˆ°å¾…åˆ ç»“ç‚¹çš„å³å­æ ‘çš„æœ€å°èŠ‚ç‚¹ï¼ˆä¹Ÿå¯ä»¥æ˜¯å·¦å­æ ‘çš„æœ€å¤§èŠ‚ç‚¹ï¼‰
+						//ç”¨è¯¥èŠ‚ç‚¹çš„å€¼è¦†ç›–å¾…åˆ ç»“ç‚¹çš„å€¼ï¼Œç„¶ååˆ é™¤è¯¥æœ€å°èŠ‚ç‚¹
 						Node* minRightParent = cur;
 						Node* minRight = cur->right;
 
-						//ÕÒµ½ÓÒ×ÓÊ÷µÄ×îĞ¡½Úµã
+						//æ‰¾åˆ°å³å­æ ‘çš„æœ€å°èŠ‚ç‚¹
 						while (minRight->left)
 						{
 							minRightParent = minRight;
 							minRight = minRight->left;
 						}
-						//ÓÃ¸Ã½ÚµãµÄÖµ¸²¸Ç´ıÉ¾½áµãµÄÖµ
+						//ç”¨è¯¥èŠ‚ç‚¹çš„å€¼è¦†ç›–å¾…åˆ ç»“ç‚¹çš„å€¼
 						cur->_key = minRight->_key;
 
-						//É¾³ı¸Ã×îĞ¡½Úµã
-						//ÅĞ¶ÏÔ­Òò£º´æÔÚ´ıÉ¾½ÚµãµÄÓÒ×ÓÊ÷µÄ×îĞ¡½Úµã¿ÉÄÜÊÇ´ıÉ¾½ÚµãµÄÓÒº¢×Ó£¬Ò²¿ÉÄÜ²»ÊÇ
+						//åˆ é™¤è¯¥æœ€å°èŠ‚ç‚¹
+						//åˆ¤æ–­åŸå› ï¼šå­˜åœ¨å¾…åˆ èŠ‚ç‚¹çš„å³å­æ ‘çš„æœ€å°èŠ‚ç‚¹å¯èƒ½æ˜¯å¾…åˆ èŠ‚ç‚¹çš„å³å­©å­ï¼Œä¹Ÿå¯èƒ½ä¸æ˜¯
 						if (minRightParent->left == minRight)
 						{
 							minRightParent->left = minRight->right;
 						}
-						else//minRightParent==cur,´ıÉ¾½ÚµãµÄÓÒ½Úµã¾ÍÊÇÓÒ×ÓÊ÷µÄ×îĞ¡½Úµã
+						else//minRightParent==cur,å¾…åˆ èŠ‚ç‚¹çš„å³èŠ‚ç‚¹å°±æ˜¯å³å­æ ‘çš„æœ€å°èŠ‚ç‚¹
 						{
-							minRight->right = minRight->right;
+							minParent->right = minRight->right;
 						}
-						delete minRight;//ÊÍ·Å¸Ã×îĞ¡½Úµã
+						delete minRight;//é‡Šæ”¾è¯¥æœ€å°èŠ‚ç‚¹
 						return true;
 					}
 				}
 			}
-			return false;//Î´ÕÒµ½´ıÉ¾½áµã
+			return false;//æœªæ‰¾åˆ°å¾…åˆ ç»“ç‚¹
 		}
 	private:
 		void _InOrder(Node* _root)
@@ -201,19 +201,19 @@ namespace key
 			cout << _root->_key << " ";
 			_InOrder(_root->right);
 		}
-		BSTNode<K>* _root;//¸ù½Úµã
+		BSTNode<K>* _root;//æ ¹èŠ‚ç‚¹
 	};
 }
 
 namespace keyAndval
 {
 	template<typename K,typename V>
-	struct BSTNode//¶ş²æËÑË÷Ê÷½Úµã
+	struct BSTNode//äºŒå‰æœç´¢æ ‘èŠ‚ç‚¹
 	{
-		K _key;//¼ü
-		V _value;//Öµ
-		BSTNode<K,V>* left;//×ó×ÓÊ÷
-		BSTNode<K,V>* right;//ÓÒ×ÓÊ÷
+		K _key;//é”®
+		V _value;//å€¼
+		BSTNode<K,V>* left;//å·¦å­æ ‘
+		BSTNode<K,V>* right;//å³å­æ ‘
 
 		BSTNode(const K& key,const V& value)
 			:_key(key)
@@ -233,7 +233,7 @@ namespace keyAndval
 			:_root(nullptr)
 		{
 		}
-		BSTree(const Node& other)//¿½±´¹¹Ôìº¯Êı
+		BSTree(const Node& other)//æ‹·è´æ„é€ å‡½æ•°
 		{
 			_root = Copy(other._root);
 		}
@@ -256,7 +256,7 @@ namespace keyAndval
 		}
 		bool Insert(const K& key,const V& value)
 		{
-			if (_root == nullptr)//¿ÕÊ÷
+			if (_root == nullptr)//ç©ºæ ‘
 			{
 				Node* newNode = new Node(key,value);
 				_root = newNode;
@@ -266,22 +266,22 @@ namespace keyAndval
 			Node* cur = _root;
 			while (cur)
 			{
-				if (cur->_key > key)//±È¸Ã½áµãĞ¡£¬Íù×ó×ß
+				if (cur->_key > key)//æ¯”è¯¥ç»“ç‚¹å°ï¼Œå¾€å·¦èµ°
 				{
 					parent = cur;
 					cur = cur->left;
 				}
-				else if (cur->_key < key)//±È¸Ã½áµã´ó£¬ÍùÓÒ×ß
+				else if (cur->_key < key)//æ¯”è¯¥ç»“ç‚¹å¤§ï¼Œå¾€å³èµ°
 				{
 					parent = cur;
 					cur = cur->right;
 				}
 				else
 				{
-					return false;//²»ÔÊĞí²åÈëÏàÍ¬µÄ¼ü
+					return false;//ä¸å…è®¸æ’å…¥ç›¸åŒçš„é”®
 				}
 			}
-			//ÕÒµ½ÁË²åÈëÎ»ÖÃ
+			//æ‰¾åˆ°äº†æ’å…¥ä½ç½®
 			cur = new Node(key,value);
 			if (parent->_key < key)
 			{
@@ -294,7 +294,7 @@ namespace keyAndval
 			return true;
 		}
 
-		//ÖĞĞò±éÀú
+		//ä¸­åºéå†
 		void InOrder()
 		{
 			_InOrder(_root);
@@ -338,13 +338,13 @@ namespace keyAndval
 					parent = cur;
 					cur = cur->left;
 				}
-				else//ÕÒµ½´ıÉ¾½áµã
+				else//æ‰¾åˆ°å¾…åˆ ç»“ç‚¹
 				{
-					//Èç¹û¸Ã½áµãÖ»ÓĞ0»ò1¸öº¢×Ó
-					//Èô¸Ã½ÚµãµÄ×ó×ÓÊ÷Îª¿Õ
+					//å¦‚æœè¯¥ç»“ç‚¹åªæœ‰0æˆ–1ä¸ªå­©å­
+					//è‹¥è¯¥èŠ‚ç‚¹çš„å·¦å­æ ‘ä¸ºç©º
 					if (cur->left == nullptr)
 					{
-						//Èç¹û¸Ã½áµãÊÇ¸ù½áµã
+						//å¦‚æœè¯¥ç»“ç‚¹æ˜¯æ ¹ç»“ç‚¹
 						if (parent == nullptr)
 						{
 							_root = cur->right;
@@ -362,9 +362,9 @@ namespace keyAndval
 						delete cur;
 						return true;
 					}
-					else if (cur->right == nullptr)//Èô¸Ã½ÚµãµÄÓÒ×ÓÊ÷Îª¿Õ
+					else if (cur->right == nullptr)//è‹¥è¯¥èŠ‚ç‚¹çš„å³å­æ ‘ä¸ºç©º
 					{
-						//Èç¹û¸Ã½áµãÊÇ¸ù½Úµã
+						//å¦‚æœè¯¥ç»“ç‚¹æ˜¯æ ¹èŠ‚ç‚¹
 						if (parent == nullptr)
 						{
 							_root = cur->left;
@@ -383,39 +383,39 @@ namespace keyAndval
 						delete cur;
 						return true;
 					}
-					else//¸Ã½áµãÓĞÁ½¸öº¢×Ó
+					else//è¯¥ç»“ç‚¹æœ‰ä¸¤ä¸ªå­©å­
 					{
-						//ÕÒµ½´ıÉ¾½áµãµÄÓÒ×ÓÊ÷µÄ×îĞ¡½Úµã£¨Ò²¿ÉÒÔÊÇ×ó×ÓÊ÷µÄ×î´ó½Úµã£©
-						//ÓÃ¸Ã½ÚµãµÄÖµ¸²¸Ç´ıÉ¾½áµãµÄÖµ£¬È»ºóÉ¾³ı¸Ã×îĞ¡½Úµã
+						//æ‰¾åˆ°å¾…åˆ ç»“ç‚¹çš„å³å­æ ‘çš„æœ€å°èŠ‚ç‚¹ï¼ˆä¹Ÿå¯ä»¥æ˜¯å·¦å­æ ‘çš„æœ€å¤§èŠ‚ç‚¹ï¼‰
+						//ç”¨è¯¥èŠ‚ç‚¹çš„å€¼è¦†ç›–å¾…åˆ ç»“ç‚¹çš„å€¼ï¼Œç„¶ååˆ é™¤è¯¥æœ€å°èŠ‚ç‚¹
 						Node* minRightParent = cur;
 						Node* minRight = cur->right;
 
-						//ÕÒµ½ÓÒ×ÓÊ÷µÄ×îĞ¡½Úµã
+						//æ‰¾åˆ°å³å­æ ‘çš„æœ€å°èŠ‚ç‚¹
 						while (minRight->left)
 						{
 							minRightParent = minRight;
 							minRight = minRight->left;
 						}
-						//ÓÃ¸Ã½ÚµãµÄÖµ¸²¸Ç´ıÉ¾½áµãµÄÖµ
+						//ç”¨è¯¥èŠ‚ç‚¹çš„å€¼è¦†ç›–å¾…åˆ ç»“ç‚¹çš„å€¼
 						cur->_key = minRight->_key;
 						cur->_value = minRight->_value;
 
-						//É¾³ı¸Ã×îĞ¡½Úµã
-						//ÅĞ¶ÏÔ­Òò£º´æÔÚ´ıÉ¾½ÚµãµÄÓÒ×ÓÊ÷µÄ×îĞ¡½Úµã¿ÉÄÜÊÇ´ıÉ¾½ÚµãµÄÓÒº¢×Ó£¬Ò²¿ÉÄÜ²»ÊÇ
+						//åˆ é™¤è¯¥æœ€å°èŠ‚ç‚¹
+						//åˆ¤æ–­åŸå› ï¼šå­˜åœ¨å¾…åˆ èŠ‚ç‚¹çš„å³å­æ ‘çš„æœ€å°èŠ‚ç‚¹å¯èƒ½æ˜¯å¾…åˆ èŠ‚ç‚¹çš„å³å­©å­ï¼Œä¹Ÿå¯èƒ½ä¸æ˜¯
 						if (minRightParent->left == minRight)
 						{
 							minRightParent->left = minRight->right;
 						}
-						else//minRightParent==cur,´ıÉ¾½ÚµãµÄÓÒ½Úµã¾ÍÊÇÓÒ×ÓÊ÷µÄ×îĞ¡½Úµã
+						else//minRightParent==cur,å¾…åˆ èŠ‚ç‚¹çš„å³èŠ‚ç‚¹å°±æ˜¯å³å­æ ‘çš„æœ€å°èŠ‚ç‚¹
 						{
 							minRight->right = minRight->right;
 						}
-						delete minRight;//ÊÍ·Å¸Ã×îĞ¡½Úµã
+						delete minRight;//é‡Šæ”¾è¯¥æœ€å°èŠ‚ç‚¹
 						return true;
 					}
 				}
 			}
-			return false;//Î´ÕÒµ½´ıÉ¾½áµã
+			return false;//æœªæ‰¾åˆ°å¾…åˆ ç»“ç‚¹
 		}
 	private:
 		void Destroy(Node* _root)
@@ -438,6 +438,7 @@ namespace keyAndval
 			cout << _root->_key << ":"<<_root->_value<<" ";
 			_InOrder(_root->right);
 		}
-		BSTNode<K,V>* _root;//¸ù½Úµã
+		BSTNode<K,V>* _root;//æ ¹èŠ‚ç‚¹
 	};
+
 }
